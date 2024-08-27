@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title >ROUTING ALGO'S</title>
+    <style>
+        
+        body{
+            background-size: cover; 
+            background-position: center; 
+            background-repeat: no-repeat;
+            background-attachment: fixed; 
+            background-image: url('images/bgimg.jpg');
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        h2{
+            color:rgb(10, 70, 74);
+            font-size:50px;
+            height:60px;
+            width: 700px;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+        
+        }
+        .wholediv
+        {   
+            
+            text-align-last: center;
+            /* background-color: rgba(226, 227, 176, 0.3); */
+        }
+        .selection{
+            margin-top: 2%;
+            margin-right: 60%;
+            font-size: x-large;
+            display: inline-block;
+        }
+        .Discription{
+            font-size: x-large;
+            display:flex;
+            flex-direction: column;
+            text-align: left;
+            margin-right: 64%;
+        }
+    </style>
+
+</head>
+<body>
+    <div class="wholediv">
+<center><h2>ROUTING ALGORITHMS</h2></center>
+
+<form action="submit" method="post">
+    <div class="selection">
+        <h3 style="display: inline; margin: 0; padding: 0;"><label for="select_algo">Select algorithm: </label> </h3>
+    <select name="select" id="select_algo" style="font-size: medium; height: 30px; width: 180px; border-radius: 50cap;">
+        <option   value="dijkstra">dijkstra's algorithm</option>
+        <option value="bellmanford">bellman ford algorithm</option>
+    </select></div>
+    <br>
+    <div class="Discription">
+    <h4 style=" margin-right: 220px; padding: 0;">Discription :</h3>
+    <p style=" margin: 0; padding: 0; margin-left:20px;">Enter the edges in the given format:</p>
+    <p style=" margin-left:53px; padding: 0;">Source,Destination,Weight. EG:(1,2,5.)</p></div>
+    <div class="Discription"><h4 style=" margin: 0; padding: 0; margin-left: -40%;"><label for="description">Enter edges:</label></h3></div>
+    
+    <textarea style=" margin-left:-500px; padding: 0;font-size: 20px; width: 300px; height: 200px;" name="edges" cols="30" rows="20" id="description" ></textarea>
+    
+    <h3 style=" margin-left:-1050px; padding: 0;"> Enter source node: <input style="border-radius: 90cap; font-size: 20px; width: 100px; height: 20px;" type="text" name="source" > </h3>
+   <br>
+    <input style="border-radius: 50cap; height: 30px; width: 80px;" type="submit" value="Submit">
+    <input style="border-radius: 50cap; height: 30px; width: 80px;" type="reset" value="Reset">
+   <br>
+   <div id="Dtable">
+    <% if (locals.result && Array.isArray(locals.result) && Array.isArray(locals.result[0]) && locals.result[0][0] !== Infinity && locals.algo==='dijkstra'){ %>
+        
+        <h3>Shortest path from <%= locals.sourcenode %> to all other nodes. </h3>
+        <center>
+        <table  cellpadding="2" border="1" style="width: 400px; height: 300px;">
+            <tr>
+                <th>Nodes</th>
+                <th>Shortest path</th>
+                <th>Parent</th>
+            </tr>
+            <!-- <tr> -->
+                <% for(var i=0;i<locals.result[0].length;i++){ %>
+                    <tr>
+                        <td align="center"> <%= i %> </td>
+                        <td>
+                        <% if(locals.result[0][i]!==Infinity) {%>
+                            <%= locals.result[0][i] %>
+                            <% }else{ %>
+                                not reachable
+                                <% } %>
+                            </td>
+                        <td><%= locals.result[1][i] %></td>
+                    </tr>
+                    <% } %>
+            <!-- </tr> -->
+        </table>
+        </center>
+        <%}else if (locals.result && Array.isArray(locals.result) && locals.result[0]!== Infinity && locals.algo==='bellmanford' && locals.result!==[0]){ %>
+        
+            <h3>Shortest path from <%= locals.sourcenode %> to all other nodes. </h3>
+        <center>
+            <table  cellpadding="2" border="1" style="width: 400px; height: 300px;">
+                <tr>
+                    <th>Nodes</th>
+                    <th>Shortest path</th>
+                </tr>
+                <tr>
+                    <% for(var i=0;i<locals.result.length;i++){ %>
+                        <tr>
+                            <td align="center"> <%= i %> </td>
+                            <td>
+                            <% if(locals.result[i]!==Infinity) {%>
+                                <%= locals.result[i] %>
+                                <% }else{ %>
+                                    not reachable
+                                    <% } %>
+                                </td>
+                        </tr>
+                        <% } %>
+                </tr>
+            </table>
+       </center>
+       
+    <% }else{ %>
+        <script>alert("enter atleast 2 edges or negeative cycle in graph")</script>
+        <% } %>
+   </div>
+   <br>
+</form>
+</div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
